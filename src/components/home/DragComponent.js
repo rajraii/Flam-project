@@ -32,7 +32,7 @@ const DragComponent = () => {
   const navigate=useNavigate();
   function onNavigate() {
     let text=`Please confirm if you want to be navigated to avatar standalone page`
-    if(window.confirm(text)==true) navigate(`/avatar`)
+    if(window.confirm(text)===true) navigate(`/avatar`)
 
   }
   return (

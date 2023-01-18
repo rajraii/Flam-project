@@ -1,4 +1,4 @@
-import { PresentationControls, Stage, useGLTF } from '@react-three/drei'
+import { PresentationControls, Stage} from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React from 'react'
 import Model from '../Model'

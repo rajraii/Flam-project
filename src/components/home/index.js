@@ -1,8 +1,8 @@
+import { Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useEffect, useState } from "react";
-import { Stage } from "@react-three/drei";
 import Draggable from "react-draggable";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../index.css";
 import Model from "../Model";
 
@@ -29,11 +29,6 @@ const Home = () => {
     setContainerClass(position);
   };
 
-  const navigate = useNavigate();
-  function onNavigate() {
-    let text = `Please confirm if you want to be navigated to avatar standalone page`;
-    if (window.confirm(text) === true) navigate(`/avatar`);
-  }
   const handleStop = (event, data) => {
     setPosition({ x: data.x, y: data.y });
   };
@@ -116,10 +111,7 @@ const Home = () => {
           position={{ x: position.x, y: position.y }}
         >
           <div className="box">
-            <Canvas
-              style={{ background: "#171717", borderRadius: `20px` }}
-              onClick={onNavigate}
-            >
+            <Canvas style={{ background: "#171717", borderRadius: `20px` }}>
               <Suspense fallback={null}>
                 <Stage environment={"sunset"}>
                   <Model scale={1.5} />
@@ -131,7 +123,9 @@ const Home = () => {
       </div>
 
       <footer className="footer">
-        <div className="footer--container"> Footer</div>
+        <div className="footer--container">
+          <Link to={"/avatar"}>Standalone</Link>
+        </div>
       </footer>
     </div>
   );

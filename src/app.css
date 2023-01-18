@@ -37,6 +37,14 @@
   background: #d9d9d9;
   border-radius: 20px;
   padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.footer--container > a {
+  color: #5a5959;
+  text-decoration: none;
 }
 
 .center {

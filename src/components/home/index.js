@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
-import DragComponent from "./DragComponent";
+import { Canvas } from "@react-three/fiber";
+import React, { Suspense, useEffect, useState } from "react";
+import { Stage } from "@react-three/drei";
+import Draggable from "react-draggable";
+import { useNavigate } from "react-router-dom";
 import "../../index.css";
+import Model from "../Model";
 
 const Home = () => {
   const [headerTime, setHeaderTime] = useState(``);
@@ -19,9 +23,21 @@ const Home = () => {
   }, []);
 
   const [containerClass, setContainerClass] = useState("center");
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const changePosition = (position) => {
+    setPosition({ x: 0, y: 0 });
     setContainerClass(position);
   };
+
+  const navigate = useNavigate();
+  function onNavigate() {
+    let text = `Please confirm if you want to be navigated to avatar standalone page`;
+    if (window.confirm(text) === true) navigate(`/avatar`);
+  }
+  const handleStop = (event, data) => {
+    setPosition({ x: data.x, y: data.y });
+  };
+
   return (
     <div>
       <header className="header">
@@ -94,7 +110,24 @@ const Home = () => {
       </header>
 
       <div className={`main-container ${containerClass}`}>
-          <DragComponent />
+        <Draggable
+          bounds="parent"
+          onStop={handleStop}
+          position={{ x: position.x, y: position.y }}
+        >
+          <div className="box">
+            <Canvas
+              style={{ background: "#171717", borderRadius: `20px` }}
+              onClick={onNavigate}
+            >
+              <Suspense fallback={null}>
+                <Stage environment={"sunset"}>
+                  <Model scale={1.5} />
+                </Stage>
+              </Suspense>
+            </Canvas>
+          </div>
+        </Draggable>
       </div>
 
       <footer className="footer">
